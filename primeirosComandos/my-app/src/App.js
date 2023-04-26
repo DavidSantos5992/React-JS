@@ -1,8 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
   const [input, setInput] = useState('')
   const[tarefa, setTarefa] = useState([])
+
+  useEffect(()=>{
+    const tarefasStorage = localStorage.getItem('@tarefa');
+    alert('ooi')
+    if (tarefasStorage) {
+      setTarefa(JSON.parse(tarefasStorage))
+    }
+    
+  }, [])
+
+  useEffect(()=>{
+    localStorage.setItem('@tarefa', JSON.stringify(tarefa))
+  }, [tarefa]);
+  /* armazenando array tarefa em forma de string dentro do localStorege */
+
+  /* se o aray estiver vazio sempre que o componente app for chamado a função useEffect sera chamanda,
+     caso o array do useEffect estiver preenchido, sempre que o paramentro dentro do array for alterado a função useEffect sera chamada novamente*/
 
   function handleRegister(e) {
     e.preventDefault();
@@ -10,7 +27,6 @@ function App() {
     setTarefa([...tarefa, input])
     setInput('')
 
-    /* ...tarefa pega todo o array */
   }
 
   return (
@@ -26,9 +42,6 @@ function App() {
          <br/>
          <br/>
 
-    
-
-
         <button type="submit">Registrar</button>
 
       </form>
@@ -36,7 +49,9 @@ function App() {
       <ul>
         {/* map percorre todo o array e constroi um novo */}
         {tarefa.map( tarefa => (
-          <li key={tarefa}>{tarefa}</li>
+          <li key={tarefa}>
+              {tarefa}
+          </li>
         ))}
       </ul>
     </div>
