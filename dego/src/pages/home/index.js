@@ -6,6 +6,9 @@ function Home() {
 
          <h1>home</h1>    
          <Link to='./Sobre'>ir para sobre</Link>
+
+         <hr /><br />
+          <Link to='/produto/123'>acessar produto 123</Link>
         </div >
     );
 }
